@@ -123,7 +123,7 @@ def make_dart_context(label,
     if label.package.startswith("vendor/"):
       lib_root = "%s/lib/" % label.package[len("vendor/"):]
     elif label.workspace_root.startswith("external/"):
-      lib_root = "%s/lib/" % label.workspace_root[len("external/"):]
+      lib_root = "../%s/lib/" % label.workspace_root[len("external/"):]
     elif not label.package:
       lib_root = "lib/"
     else:
@@ -207,8 +207,6 @@ def package_spec_action(ctx, dart_ctx, output):
     lib_root = dc.lib_root
     if lib_root.startswith("vendor/"):
       lib_root = lib_root[len("vendor/"):]
-    if dc.label.workspace_root.startswith("external/"):
-      lib_root = "../" + lib_root
     relative_lib_root = _relative_path(dart_ctx.label.package, lib_root)
     if dc.package:
       content += "%s:%s\n" % (dc.package, relative_lib_root)
