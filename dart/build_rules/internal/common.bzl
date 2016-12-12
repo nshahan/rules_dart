@@ -200,10 +200,10 @@ def package_spec_action(ctx, dart_ctx, output):
     path_to_lib_root = "lib/"
     # print(dc.label.package, dc.label.workspace_root)
     if dc.label.package.startswith("vendor/"):
-      path_to_lib_root = "%s/%s" % (dc.label.package[len("vendor/"):], dc.lib_root)
+      path_to_lib_root = "vendor_%s/%s" % (dc.label.package[len("vendor/"):], dc.lib_root)
     #   print("VENDOR: ", dc.label.package, dc.label.workspace_root, path_to_lib_root)
     elif dc.label.workspace_root.startswith("external/"):
-      path_to_lib_root = "../%s/%s" % (dc.label.workspace_root[len("external/"):], dc.lib_root)
+      path_to_lib_root = "%s/%s" % (dc.label.workspace_root[len("external/"):], dc.lib_root)
     #   print("EXTERNAL: ", dc.label.package, dc.label.workspace_root, path_to_lib_root)
     # else:
     #   print("EVERYTHING ELSE: ", dc.label.package, dc.label.workspace_root, path_to_lib_root)
@@ -246,8 +246,8 @@ def layout_action(ctx, srcs, output_dir):
     output_dir += "/"
   for src_file in srcs:
     short_better_path = src_file.short_path
-    if "vendor_" in short_better_path:
-      short_better_path = short_better_path.replace("vendor_", "")
+    # if "vendor_" in short_better_path:
+    #   short_better_path = short_better_path.replace("vendor_", "")
     if short_better_path.startswith('../'):
       dest_file = ctx.new_file(output_dir + short_better_path.replace("../", ""))
     else:
